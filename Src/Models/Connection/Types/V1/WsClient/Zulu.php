@@ -8,7 +8,7 @@ class Zulu extends Process
 	{
 		if ($this->isTerm() === false && $this->_initTerm === false) {
 			$this->_initTerm	= true;
-		
+
 			\MTM\Connect\Facts::getConnections()->unsetCache($this, false);
 			
 			if ($this->_evObj !== null) {
@@ -31,6 +31,8 @@ class Zulu extends Process
 					//user issue
 				}
 			}
+
+			parent::terminate();
 			$this->_isTerm		= true;
 		}
 	}

@@ -12,4 +12,9 @@ class Messages extends CallBacks
 		$msgObj->setAuthKey($this->getPassword())->setAuthPepper($this->getPepper());
 		return $msgObj;
 	}
+	public function getPendingRequests()
+	{
+		//get requests that are currently waiting for RSVP
+		return \MTM\Connect\Facts::getUtilities()->getMessagesV1()->getMessagesByConnection($this);
+	}
 }

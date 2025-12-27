@@ -64,7 +64,7 @@ class Connections extends Base
 		} elseif (array_key_exists($connObj->getGuid(), $this->_connObjs) === true) {
 			unset($this->_connObjs[$connObj->getGuid()]);
 		} elseif ($throw === true) {
-			throw new \Exception("Connection already cached", 1111);
+			throw new \Exception("Connection not cached", 1111);
 		}
 	}
 }

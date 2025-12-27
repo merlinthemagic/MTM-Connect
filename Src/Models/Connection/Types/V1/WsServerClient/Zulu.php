@@ -31,6 +31,8 @@ class Zulu extends Process
 					//user issue
 				}
 			}
+			
+			parent::terminate();
 			$this->_isTerm		= true;
 		}
 	}

@@ -2,7 +2,7 @@
 //� 2025 Martin Peter Madsen
 namespace MTM\Connect\Utilities\Messages\V1;
 
-abstract class Requests extends Alpha
+abstract class Requests extends Pending
 {
 	protected function parseRequest($connObj, $rawMsg)
 	{

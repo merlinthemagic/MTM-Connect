@@ -31,9 +31,7 @@ class Alpha extends \MTM\Connect\Models\Connection\Types\Base
 	{
 		$this->isBoolean($val, true);
 		if ($val === true) {
-			if ($this->getRequestCb() === null) {
-				throw new \Exception("Cannot enable RX, connection is missing request call back", 1111);
-			} elseif ($this->isInit() === false) {
+			if ($this->isInit() === false) {
 				throw new \Exception("Cannot enable RX, connection is not initialized", 1111);
 			}
 		}

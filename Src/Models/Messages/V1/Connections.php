@@ -20,7 +20,7 @@ abstract class Connections extends Alpha
 	public function getRxConn()
 	{
 		if ($this->_rxConn !== null) {
-			return \MTM\Connect\Facts::getConnections()->getByGuid($this->_rxConn);
+			return \MTM\Connect\Facts::getConnections()->getByGuid($this->_rxConn, true);
 		} else {
 			throw new \Exception("Cannot get the RX connection, guid not set", 1111);
 		}
@@ -38,7 +38,7 @@ abstract class Connections extends Alpha
 	public function getTxConn()
 	{
 		if ($this->_txConn !== null) {
-			return \MTM\Connect\Facts::getConnections()->getByGuid($this->_txConn);
+			return \MTM\Connect\Facts::getConnections()->getByGuid($this->_txConn, true);
 		} else {
 			throw new \Exception("Cannot get the TX connection, guid not set", 1111);
 		}

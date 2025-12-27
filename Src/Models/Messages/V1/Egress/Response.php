@@ -24,6 +24,7 @@ abstract class Response extends Request
 			$this->sendRequest($throw);
 			if ($this->getRequestSent() === true) {
 				try {
+					
 					$loopObj		= \MTM\Events\Facts::getLoops()->getV1();
 					while($this->getResponseReceived() === false && $this->getDone() === false) {
 						usleep($this->_rxLoopDelay);
