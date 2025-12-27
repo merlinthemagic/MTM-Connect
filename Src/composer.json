@@ -1,0 +1,28 @@
+{
+	"name" : "merlinthemagic/mtm-keydb",
+	"type" : "library",
+	"description" : "KeyDB client for PHP 7",
+	"version" : "0.0.1",
+	"keywords" : [
+		"bash",
+		"routeros"
+	],
+	"homepage" : "https://github.com/merlinthemagic/MTM-KeyDB",
+	"license" : "LGPL-3.0",
+	"authors" : [{
+			"name" : "Martin Peter Madsen",
+			"email" : "dev@martinpetermadsen.com",
+			"role" : "Developer"
+		}
+	],
+	"require" : {
+		"php" : ">=7.3.0",
+		"merlinthemagic/mtm-utilities" : ">=0.0.1"
+	},
+	"autoload" : {
+		"files" : [
+			"./Src/Enable.php"
+		]
+	},
+	"minimum-stability" : "dev"
+}
