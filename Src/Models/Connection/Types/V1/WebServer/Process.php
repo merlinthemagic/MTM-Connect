@@ -125,6 +125,7 @@ abstract class Process extends Initialize
 						throw new \Exception("Method: '".$method."' is not supported", 1400);
 					}
 	
+					
 					$msgObj		= \MTM\Connect\Facts::getUtilities()->getMessagesV1()->handle($this, $rawMsg);
 					if ($msgObj->getResponseReceived() === false) {
 						if ($this->getRequestCb() !== null) {
