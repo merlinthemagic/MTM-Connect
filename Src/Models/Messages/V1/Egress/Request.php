@@ -51,6 +51,7 @@ abstract class Request extends Alpha
 		$msgObj->route->l10			= $this->getL10();
 		$msgObj						= $this->orderData($msgObj);
 		
+		//we sha512(sha512(json) + pepper) here to mitigate extension attacks and because HMAC is not available on all platforms e.g. RouterOS
 		$hash						= hash("sha512", json_encode($msgObj, JSON_UNESCAPED_SLASHES));
 		$msgObj->auth->hash			= hash("sha512", $hash.$this->getAuthPepper());
 		

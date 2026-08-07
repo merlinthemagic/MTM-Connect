@@ -53,6 +53,12 @@ abstract class Response extends Request
 		//insertion order matters php maintains the order, routeros orders alphabetically
 		//if not done alphabetically the hashing will mismatch and fail
 		
+		if ($this->getAuthPepper() === null) {
+			//the pepper is likely set as part of the request validation. If you need to authenticate a message 
+			//that does not have a pepper e.g. on some other unauth method, set an empty string on both sides as the pepper
+			throw new \Exception("Authentication pepper is not set, cannot validate response", 1111);
+		}
+		
 		$msgObj						= new \stdClass();
 		$msgObj->auth				= new \stdClass();
 		$msgObj->auth->hash			= "00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000";
@@ -77,6 +83,7 @@ abstract class Response extends Request
 		$msgObj->head->version		= $this->getVersion();
 		$msgObj						= $this->orderData($msgObj);
 		
+		//we sha512(sha512(json) + pepper) here to mitigate extension attacks and because HMAC is not available on all platforms e.g. RouterOS
 		$hash						= hash("sha512", json_encode($msgObj, JSON_UNESCAPED_SLASHES));
 		$calcHash					= hash("sha512", $hash.$this->getAuthPepper());
 		if ($this->getResponseHash() === $calcHash) {
