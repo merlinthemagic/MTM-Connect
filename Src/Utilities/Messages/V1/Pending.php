@@ -74,6 +74,7 @@ abstract class Pending extends Alpha
 							}
 							
 							$msgObj->setDone(true);
+							
 						} catch (\Exception $e) {
 							$msgObj->setDone(true);
 						}

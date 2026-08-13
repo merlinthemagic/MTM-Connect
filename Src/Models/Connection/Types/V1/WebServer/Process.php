@@ -130,6 +130,30 @@ abstract class Process extends Initialize
 					if ($msgObj->getResponseReceived() === false) {
 						if ($this->getRequestCb() !== null) {
 							call_user_func_array($this->getRequestCb(), array($msgObj));
+							
+							if ($msgObj->getRsvp() === false && $msgObj->getDone() === true) {
+								//not sure about this placement. or the best method
+								//But we want to avoid the http server hanging around when the client is not expecting any rsvp
+							
+								
+								//send response and close the client connection, we still keep going
+								//issue is the event loop keeps going after this hanging around until the connection is timed out
+// 								ob_start();
+// 								header("Content-Type: application/json; charset=utf-8");
+// 								header("HTTP/1.0 200 OK");
+// 								echo json_encode(new \stdClass(), JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+// 								header("Content-Length: ".ob_get_length());
+// 								header("Connection: close");
+// 								ob_end_flush();
+// 								ob_flush();
+// 								flush();
+								
+								//signal we received the data and die, faking the response
+								header("Content-Type: application/json; charset=utf-8");
+								header("HTTP/1.0 200 OK");
+								echo json_encode(new \stdClass(), JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+								exit();
+							}
 						}
 					} elseif ($this->getResponseCb() !== null) {
 						call_user_func_array($this->getResponseCb(), array($msgObj));
@@ -140,6 +164,7 @@ abstract class Process extends Initialize
 				}
 				
 			} catch (\Exception $e) {
+				
 				$evObj->terminate();
 				throw $e;
 			}
