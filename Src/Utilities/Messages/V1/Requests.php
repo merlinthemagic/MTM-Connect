@@ -49,6 +49,15 @@ abstract class Requests extends Pending
 			$msgObj->setAuthKey($authObj->key);
 			$msgObj->setAuthHash($authObj->hash);
 			
+			if ($msgObj instanceof \MTM\Connect\Models\Messages\V1\Ingress\Zulu === true) {
+				if ($connObj instanceof \MTM\Connect\Models\Connection\Types\V1\WsServerClient\Zulu === true) {
+					if ($connObj->getPepper() !== null) {
+						//allow any response message to authenticate
+						$msgObj->setAuthPepper($connObj->getPepper());
+					}
+				}
+			}
+			
 			//routing
 			$routeObj	= $rawMsg->route;
 			$this->stdPropsExist($routeObj, array("l1", "l2", "l3", "l4", "l5", "l6", "l7", "l8", "l9", "l10"), true);

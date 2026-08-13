@@ -15,6 +15,10 @@ class Zulu extends Process
 				$this->_evObj->terminate();
 				$this->_evObj	= null;
 			}
+
+			$serverObj			= $this->_wsServer;
+			$this->_wsServer	= null;
+			$serverObj->removeServerClientCb($this);
 			
 			$wsSock		= $this->getWsSock();
 			if ($wsSock !== null) {

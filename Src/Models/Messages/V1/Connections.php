@@ -4,8 +4,8 @@ namespace MTM\Connect\Models\Messages\V1;
 
 abstract class Connections extends Alpha
 {
-	protected $_txConn=null; //data that originates a request and will be sent out a connection
-	protected $_rxConn=null; //data that is received the request
+	protected $_txConn=null; //connection where the request was sent out if this is an egress message
+	protected $_rxConn=null; //connection where the request was received if this is an ingress message
 
 	public function setRxConnGuid($val)
 	{

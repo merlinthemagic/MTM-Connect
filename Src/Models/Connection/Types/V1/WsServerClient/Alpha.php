@@ -5,6 +5,7 @@ namespace MTM\Connect\Models\Connection\Types\V1\WsServerClient;
 abstract class Alpha extends \MTM\Connect\Models\Connection\Types\V1\Zulu
 {
 	protected $_wsSock=null;
+	protected $_wsServer=null;
 	
 	//auth is needed when server clients push messages
 	protected $_username=null;
@@ -23,6 +24,18 @@ abstract class Alpha extends \MTM\Connect\Models\Connection\Types\V1\Zulu
 	public function getWsSock()
 	{
 		return $this->_wsSock;
+	}
+	public function setWsServer($val)
+	{
+		if ($val instanceof \MTM\Connect\Models\Connection\Types\V1\WsServer\Zulu === false) {
+			throw new \Exception("Invalid input", 1111);
+		}
+		$this->_wsServer	= $val;
+		return $this;
+	}
+	public function getWsServer()
+	{
+		return $this->_wsServer;
 	}
 	public function setUsername($val)
 	{

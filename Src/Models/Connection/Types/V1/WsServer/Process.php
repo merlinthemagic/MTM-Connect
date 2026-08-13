@@ -14,6 +14,10 @@ abstract class Process extends Initialize
 	protected $_pingInt=120; //seconds between keep alive pings
 	protected $_pingNext=0; //time of next ping
 	
+	public function getClients()
+	{
+		return array_values($this->_cliObjs);
+	}
 	public function checkClients($evObj)
 	{
 		$cObjs			= $this->getWsObj()->getClients();
@@ -38,7 +42,7 @@ abstract class Process extends Initialize
 	public function newConnectCb($wsSock)
 	{
 		$wsObj	= new \MTM\Connect\Models\Connection\Types\V1\WsServerClient\Zulu();
-		$wsObj->setWsSock($wsSock)->setTermCb($this, "removeServerClientCb");
+		$wsObj->setWsSock($wsSock)->setWsServer($this);
 		
 		//mirror the parent, if this is a WsServer in push configuration (process also acts as worker) then all messages must be ingress not relay 
 		$wsObj->setRelay($this->isRelay());
@@ -53,6 +57,11 @@ abstract class Process extends Initialize
 		$errCb		= $this->getErrorCb();
 		if ($errCb !== null) {
 			$wsObj->setErrorCb($errCb[0], $errCb[1]);
+		}
+		
+		$termCb		= $this->getTermCb();
+		if ($termCb !== null) {
+			$wsObj->setTermCb($termCb[0], $termCb[1]);
 		}
 
 		\MTM\Connect\Facts::getConnections()->setCache($wsObj);
