@@ -34,11 +34,11 @@ abstract class Request extends Alpha
 			} catch (\Exception $e) {
 				$this->setDone(true);
 				switch ($e->getCode()) {
-					default;
-					if ($throw === true) {
-						throw $e;
-					}
-					break;
+					default:
+						if ($throw === true) {
+							throw $e;
+						}
+						break;
 				}
 			}
 		}

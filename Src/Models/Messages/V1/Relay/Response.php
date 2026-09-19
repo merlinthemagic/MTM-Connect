@@ -26,11 +26,11 @@ abstract class Response extends Request
 			} catch (\Exception $e) {
 				$this->setDone(true);
 				switch ($e->getCode()) {
-					default;
-					if ($throw === true) {
-						throw $e;
-					}
-					break;
+					default:
+						if ($throw === true) {
+							throw $e;
+						}
+						break;
 				}
 			}
 		}
